@@ -28,6 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
+    recipieslistcontroller.query.value.clear();
     fetchFavoriteRecipes();
   }
 
@@ -152,7 +153,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             ),
                             child: Stack(
                               children: [
-                                
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: Stack(
@@ -246,8 +246,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 SizedBox(height: 8),
                 Container(
-                  height:
-                      140,
+                  height: 140,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: favoriteRecipes.length,
@@ -261,7 +260,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         },
                         child: Card(
                           color: Colors.white,
-                       
                           margin: EdgeInsets.only(
                               left: index == 0 ? 16 : 0, right: 8),
                           child: Padding(

@@ -11,7 +11,7 @@ const String baseUrl = "https://api.spoonacular.com/";
 
 const String search_recipes = "recipes/complexSearch";
 
-String? api_key = "751e79e598314028830293dbe5c59364";
+String? api_key = "22db7561579d495badedc64aa5bd3f04";
 
 class ApiHelper {
   Map<String, String> headers = {

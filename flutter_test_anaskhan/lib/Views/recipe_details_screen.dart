@@ -58,6 +58,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test_anaskhan/Controllers/Recipe_details.dart';
 import 'package:flutter_test_anaskhan/Models/Recipe_details.dart';
+import 'package:flutter_test_anaskhan/Views/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -104,11 +105,9 @@ class _RecipeDetailsState extends State<RecipeDetails> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String favoriteKey =
         'is_favorite_${widget.title}'; // Use a consistent key format for favorite status
-    Recipes_Info recipe =
-        await recipydata;
-    String recipeKey =
-        'recipe_${widget.title}'; 
-    String recipeJson = jsonEncode(recipe.toJson()); 
+    Recipes_Info recipe = await recipydata;
+    String recipeKey = 'recipe_${widget.title}';
+    String recipeJson = jsonEncode(recipe.toJson());
     print(recipeJson);
     setState(() {
       isFavorite = !isFavorite;
@@ -121,6 +120,7 @@ class _RecipeDetailsState extends State<RecipeDetails> {
       print('Recipe JSON: $recipeJson');
       // Save the JSON string to local storage
     });
+    Get.offAll(SearchScreen());
   }
 
   @override
@@ -133,18 +133,14 @@ class _RecipeDetailsState extends State<RecipeDetails> {
         future: recipydata,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child:
-              Container()
-            );
+            return Center(child: Container());
           } else if (snapshot.hasError) {
             return Center(
               child: Text('Error: ${snapshot.error}'),
             );
           } else if (snapshot.hasData) {
-           
             var recipe = snapshot.data;
-          
+
             return SingleChildScrollView(
               padding: EdgeInsets.all(16.0),
               child: Column(
@@ -164,7 +160,10 @@ class _RecipeDetailsState extends State<RecipeDetails> {
                   SizedBox(height: 16.0),
                   Text(
                     'Title: ${recipe.title}',
-                    style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: TextStyle(
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                   SizedBox(height: 8.0),
                   Row(
